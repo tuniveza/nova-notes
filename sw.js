@@ -3,10 +3,9 @@
    refreshed in the background (so updates arrive on the next visit), fonts are kept once fetched,
    and Word import's helper library is kept after its first use. Notes themselves live in
    IndexedDB, not here. Bump VERSION when the list of app files changes. */
-const VERSION = 'nova-notes-v1';
+const VERSION = 'nova-notes-v2';
 const APP = [
   './',
-  './index.html',
   './manifest.webmanifest',
   './css/nova-notes.css',
   './js/themes.js',

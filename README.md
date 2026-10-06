@@ -133,7 +133,7 @@ flowchart LR
 - **`convert.js`**: cleans pasted and imported HTML down to what the editor understands, converts Markdown both ways, and builds the **styled export**: every block is inline-styled in the current theme's colours, made deep enough to read on white, so Google Docs and Word keep the look and the centring.
 - **`google.js`**: the clipboard route (rich HTML plus plain text) and the Drive route (Google Identity Services token → multipart upload that Drive converts to a Google Doc, then `PATCH` to update it).
 - **`store.js`**: notes in IndexedDB (falling back to localStorage), settings, backup and restore.
-- **`themes.js`** and **`backdrop.js`**: the Nova suite's colour themes and the star field, shared with [Nova Task](https://github.com/tuniveza/nova-task).
+- **`themes.js`** and **`backdrop.js`**: the Nova suite's colour themes and the star field, shared with [Nova Calendar](https://github.com/tuniveza/nova-calendar).
 
 ## Keyboard shortcuts
 
@@ -163,7 +163,7 @@ nn/
 ├── wrangler.jsonc      Cloudflare hosting (static assets only)
 ├── css/nova-notes.css  all the styling: cosmic and paper pages, themes, print, phones
 ├── js/
-│   ├── themes.js       colour themes (shared with Nova Task)
+│   ├── themes.js       colour themes (shared with Nova Calendar)
 │   ├── backdrop.js     the twinkling star field
 │   ├── store.js        IndexedDB notes, settings, backup/restore
 │   ├── convert.js      cleaning, Markdown, styled export for Google Docs / Word / HTML
@@ -182,7 +182,7 @@ nn/
 | [**nova-bot**](https://github.com/tuniveza/nova-bot) | The studio's chat assistant, bookings and staff app back end |
 | [**nova-agent**](https://github.com/tuniveza/nova-agent) | The browser helper that works Acuity's admin pages |
 | [**nova-club**](https://github.com/tuniveza/nova-club) | The members' Android app |
-| [**nova-task**](https://github.com/tuniveza/nova-task) | A cosmic calendar of note cards and day cards |
+| [**nova-calendar**](https://github.com/tuniveza/nova-calendar) | A cosmic calendar of note cards and day cards |
 | [**nova-notes**](https://github.com/tuniveza/nova-notes) | You are here |
 | [**nova-observatory**](https://github.com/tuniveza/nova-observatory) | A dashboard of every project |
 

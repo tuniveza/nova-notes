@@ -1,5 +1,5 @@
 /* Nova Notes — nova-notes.css
-   Novacane cosmic styling, shared with Nova Task: theme colours arrive as custom properties from
+   Novacane cosmic styling, shared with Nova Calendar: theme colours arrive as custom properties from
    js/themes.js (the values in :root are the Novacane theme, so the page looks right before the
    script runs). Type: Archivo (wide, 900) for display, Saira for reading, Source Code Pro for labels.
    The page itself has two looks: Cosmic (glass among the stars) and Paper (white, exactly how the
