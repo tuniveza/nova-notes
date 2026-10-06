@@ -789,6 +789,8 @@
     ['Help', () => [
       { label: 'Install Nova Notes as an app', icon: 'export', run: installApp },
       { label: 'Keyboard shortcuts', icon: 'keys', kbd: 'Ctrl+/', run: showKeys },
+      // Every Nova suite address, live and testing (behind the admin password, on Nova Hub's admin page)
+      { label: '🔒 All Nova suite links', icon: 'link', run: () => window.open('https://novacane-worker.novacane-studio.workers.dev/admin/links', '_blank', 'noopener') },
       { label: 'About Nova Notes', icon: 'info', run: () => $('dlg-about').showModal() }
     ]]
   ];
