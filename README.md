@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/sigil.svg" width="84" alt="Nova suite sigil">
+<img src="assets/icon.svg" width="96" alt="The Nova Notes icon: a glowing N with an orbit, among the stars">
 
 # Nova Notes
 
@@ -16,6 +16,10 @@ Google Docs–style writing in the Novacane cosmic look: centred by default, six
 <img src="docs/media/demo.gif" width="760" alt="Writing a note in Nova Notes: a title, a heading, a checklist and a quote, then switching colour themes and the paper page">
 
 <sub>Short demo · <a href="docs/media/demo.mp4">watch it in full quality (MP4)</a></sub>
+
+### ✦ [Open Nova Notes](https://nova-notes.novacane-studio.workers.dev) ✦
+
+<sub>Works in any modern browser · install it as an app · works offline</sub>
 
 </div>
 
@@ -72,7 +76,22 @@ Google Docs–style writing in the Novacane cosmic look: centred by default, six
 
 </details>
 
-## Run it
+## Use it as an app
+
+Open **https://nova-notes.novacane-studio.workers.dev** and install it:
+
+- **Computer (Chrome, Edge):** the **Install** button in the top bar, or the install icon in the address bar.
+- **Android:** browser menu → **Install app** / **Add to Home screen**.
+- **iPhone / iPad:** Safari → **Share** → **Add to Home Screen**.
+
+Once installed it has its own icon and window, works offline, and can:
+- start a **new note** straight from the icon's shortcut menu (long-press or right-click the icon),
+- take things you **share** from other apps on your phone (text and links become a new note),
+- **open `.md`, `.txt`, `.html` and `.docx` files** directly (on computers: *Open with → Nova Notes*).
+
+Notes stay on each device. To move them between devices, use *File → Back up all notes* and *Restore a backup*, or send them to Google Docs.
+
+## Run it yourself
 
 It's a static web app: no install and no build step.
 
@@ -81,6 +100,8 @@ cd nn
 python3 -m http.server 4610
 # open http://localhost:4610
 ```
+
+To publish your own copy on Cloudflare: `npx wrangler deploy` (see `wrangler.jsonc`; `_headers` sets the security headers and `.assetsignore` keeps the README and media out of the site).
 
 Opening `index.html` straight from disk works too, except for *Save to Google Drive*: Google sign-in needs a web address (`http://` or `https://`). Fonts come from Google Fonts, and Word import loads [mammoth](https://github.com/mwilliamson/mammoth.js) from cdnjs the first time it's used.
 
@@ -136,6 +157,10 @@ flowchart LR
 ```
 nn/
 ├── index.html          the app: top bar, menus, toolbar, page, panels, dialogs, icon sprite
+├── manifest.webmanifest  install details: name, icons, shortcuts, sharing, file opening
+├── sw.js               offline support (caches the app, fonts and the Word importer)
+├── _headers            security headers for the hosted site
+├── wrangler.jsonc      Cloudflare hosting (static assets only)
 ├── css/nova-notes.css  all the styling: cosmic and paper pages, themes, print, phones
 ├── js/
 │   ├── themes.js       colour themes (shared with Nova Task)
@@ -145,7 +170,7 @@ nn/
 │   ├── google.js       copy-and-paste and Drive routes to Google Docs
 │   ├── editor.js       the rich text editor
 │   └── app.js          everything around the page
-├── assets/sigil.svg    the Nova sigil
+├── assets/             the app icon (icon.svg and PNG sizes), Nova sigil, install screenshots
 └── docs/media/         README screenshots and demo
 ```
 

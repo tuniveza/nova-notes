@@ -80,7 +80,31 @@ kbd { display: inline-block; min-width: 1.6em; padding: 1px 6px; border-radius: 
   align-items: center; column-gap: 18px; row-gap: 2px; padding: 10px 16px 6px; border-radius: 22px;
 }
 .brand { grid-area: brand; display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; padding-right: 6px; }
-.sigil { width: 44px; height: 44px; color: var(--soft); filter: drop-shadow(0 0 8px color-mix(in srgb, var(--hi) 60%, transparent)); }
+/* The Nova Notes mark: the cosmic N, in the theme's colours */
+.app-mark {
+  width: 46px; height: 46px; flex: none; border-radius: 13px; overflow: hidden;
+  box-shadow: 0 0 0 1px color-mix(in srgb, #fff 14%, transparent), 0 10px 26px -10px var(--hi), 0 0 22px -8px var(--hi);
+  transition: transform .3s cubic-bezier(.2, .8, .2, 1), box-shadow .3s;
+}
+.brand:hover .app-mark { transform: rotate(-6deg) scale(1.06); box-shadow: 0 0 0 1px color-mix(in srgb, #fff 22%, transparent), 0 12px 30px -8px var(--hi), 0 0 30px -6px var(--hi); }
+.app-mark.lg { width: 56px; height: 56px; border-radius: 16px; }
+
+/* Launch screen: the N rises out of the dark, the name appears, then it all fades into the app */
+.splash {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-content: center; justify-items: center; gap: 14px;
+  background: radial-gradient(55% 45% at 50% 46%, color-mix(in srgb, var(--accent-3) 85%, var(--void)), var(--void) 72%) var(--void);
+  transition: opacity .6s ease, visibility .6s;
+}
+.splash.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+.splash-mark { width: 116px; height: 116px; border-radius: 32px; overflow: hidden; box-shadow: 0 0 0 1px rgba(255, 255, 255, .14), 0 0 60px -10px var(--hi); animation: splash-rise .55s cubic-bezier(.2, .8, .2, 1) both; }
+.splash-name {
+  font-family: var(--f-display); font-stretch: 125%; font-weight: 900; text-transform: uppercase; font-size: 30px; letter-spacing: .04em;
+  background: var(--title-grad); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: splash-fade .5s ease .12s both, shimmer 6s linear infinite;
+}
+.splash-kicker { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .32em; text-transform: uppercase; color: var(--muted); animation: splash-fade .5s ease .25s both; }
+@keyframes splash-rise { from { opacity: 0; transform: translateY(18px) scale(.86); filter: blur(6px); } }
+@keyframes splash-fade { from { opacity: 0; transform: translateY(6px); } }
 .brand-kicker { display: block; font-family: var(--f-mono); font-size: 9.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
 .wordmark {
   display: block; font-family: var(--f-display); font-stretch: 125%; font-weight: 900; text-transform: uppercase;
@@ -538,7 +562,7 @@ dialog[open] .dlg-inner { animation: rise .22s ease-out; }
   .topbar { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "lib brand actions" "doc doc doc" "menu menu menu"; padding: 8px 10px 4px; border-radius: 18px; row-gap: 6px; }
   #btn-library { grid-area: lib; }
   .brand-kicker { display: none; }
-  .sigil { width: 34px; height: 34px; }
+  .app-mark { width: 36px; height: 36px; border-radius: 10px; }
   .themes { display: none; }
   .doc-title { font-size: 16px; margin-left: 0; }
   .workspace, .shell.no-library .workspace, .shell.no-outline .workspace, .shell.no-library.no-outline .workspace { grid-template-columns: minmax(0, 1fr); }
@@ -564,7 +588,7 @@ dialog[open] .dlg-inner { animation: rise .22s ease-out; }
 @media print {
   @page { margin: 18mm 16mm; }
   body { background: #fff; overflow: visible; height: auto; }
-  #sky, .nebula, .grain, .topbar, .toolbar, .library, .outline, .statusbar, .findbar, .pop, .floatbar, .menu-pop, .toast, .dropzone, dialog { display: none !important; }
+  .splash, #sky, .nebula, .grain, .topbar, .toolbar, .library, .outline, .statusbar, .findbar, .pop, .floatbar, .menu-pop, .toast, .dropzone, dialog { display: none !important; }
   .shell, .workspace, .desk { display: block; height: auto; overflow: visible; padding: 0; }
   .page-wrap { zoom: 1; padding: 0; }
   .page, .shell.paper .page {

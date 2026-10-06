@@ -14,6 +14,7 @@
   const narrow = matchMedia('(max-width: 880px)');
   const midWidth = matchMedia('(max-width: 1180px)');
 
+  const scriptStart = performance.now();
   const settings = Object.assign(
     { theme: 'novacane', page: 'cosmic', pageless: false, zoom: 1, library: true, outline: true, lastId: '', googleClientId: '' },
     S.settings.read()
@@ -786,6 +787,7 @@
       { label: 'Google Docs set-up…', icon: 'drive', run: () => openGdocs(true) }
     ]],
     ['Help', () => [
+      { label: 'Install Nova Notes as an app', icon: 'export', run: installApp },
       { label: 'Keyboard shortcuts', icon: 'keys', kbd: 'Ctrl+/', run: showKeys },
       { label: 'About Nova Notes', icon: 'info', run: () => $('dlg-about').showModal() }
     ]]
@@ -1453,6 +1455,80 @@
     if (e.altKey && !e.shiftKey && e.code === 'KeyN') return stop(newNote);
   });
 
+  // ---------- AS AN APP ----------
+  // Works offline once opened (sw.js), can be installed, and can be launched to do something:
+  //   ./?new                     a fresh note (the icon's "New note" shortcut)
+  //   ./?share&title=&text=&url= a note from something shared to Nova Notes on a phone
+  //   opening a file with it     imports the file (desktop, once installed)
+
+  let installPrompt = null;
+  const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    installPrompt = e;
+    $('btn-install').hidden = false;
+  });
+  window.addEventListener('appinstalled', () => {
+    installPrompt = null;
+    $('btn-install').hidden = true;
+    toast('Nova Notes is installed ✦ Open it from your apps');
+  });
+  async function installApp() {
+    if (standalone()) return toast('You’re already using the installed app ✦');
+    if (installPrompt) {
+      installPrompt.prompt();
+      const { outcome } = await installPrompt.userChoice;
+      installPrompt = null;
+      $('btn-install').hidden = true;
+      if (outcome !== 'accepted') toast('No problem: Help → Install Nova Notes whenever you like');
+      return;
+    }
+    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    toast(
+      ios
+        ? 'On iPhone or iPad: tap Share, then “Add to Home Screen”'
+        : !NN.google.onHttp()
+          ? 'Open Nova Notes from its web address to install it'
+          : 'Use your browser’s menu: “Install Nova Notes” or “Add to Home screen”'
+    );
+  }
+  $('btn-install').addEventListener('click', installApp);
+
+  function registerOffline() {
+    if (!('serviceWorker' in navigator) || !NN.google.onHttp()) return;
+    navigator.serviceWorker.register('sw.js').catch((err) => console.warn('Nova Notes: offline mode unavailable', err));
+  }
+
+  async function handleLaunch() {
+    const q = new URLSearchParams(location.search);
+    if (q.has('share')) {
+      const title = (q.get('title') || '').trim();
+      const text = (q.get('text') || '').trim();
+      const url = (q.get('url') || '').trim();
+      const link = url || (text.match(/https?:\/\/\S+/) || [])[0] || '';
+      const body = link && text.includes(link) ? text.replace(link, '').trim() : text;
+      const parts = [];
+      if (title) parts.push(`<p class="title">${NN.convert.esc(title)}</p>`);
+      if (body) parts.push(...body.split(/\n{2,}/).map((p) => `<p>${NN.convert.esc(p).replace(/\n/g, '<br>')}</p>`));
+      if (link && /^https?:/.test(link)) parts.push(`<p><a href="${NN.convert.esc(link)}">${NN.convert.esc(link)}</a></p>`);
+      if (parts.length) {
+        await createNote(parts.join(''), title || (body || link).slice(0, 60) || 'Shared note', Boolean(title));
+        toast('Saved what you shared as a new note ✦');
+      }
+    } else if (q.has('new')) {
+      await newNote();
+    }
+    if (location.search) history.replaceState(null, '', location.pathname);
+    // Files opened with the installed app
+    if ('launchQueue' in window) {
+      window.launchQueue.setConsumer(async (params) => {
+        if (!params.files || !params.files.length) return;
+        const files = await Promise.all(params.files.map((h) => h.getFile()));
+        importFiles(files);
+      });
+    }
+  }
+
   // ---------- WELCOME NOTE ----------
 
   const WELCOME = `<p class="title">Welcome to Nova Notes</p>
@@ -1490,6 +1566,16 @@
     const first = notes.find((n) => n.id === settings.lastId) || [...notes].sort((a, b) => b.updated.localeCompare(a.updated))[0];
     await openNote(first.id);
     $('btn-new').addEventListener('click', newNote);
+    await handleLaunch();
+    registerOffline();
+    // Let the launch screen finish its moment, then fade into the app
+    // (at least 0.9 s after the script started, so the N and the name are seen)
+    const waited = performance.now() - scriptStart;
+    const hold = matchMedia('(prefers-reduced-motion: reduce)').matches ? 100 : Math.max(0, 900 - waited);
+    setTimeout(() => {
+      $('splash').classList.add('gone');
+      setTimeout(() => $('splash').remove(), 700);
+    }, hold);
   }
   start();
 
