@@ -74,6 +74,7 @@
     <symbol id="i-tick" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
     <symbol id="i-drive" viewBox="0 0 24 24"><path d="M8.2 3h7.6l6.2 10.8-3.8 6.7H5.8L2 13.8z"/><path d="M8.2 3 14 13.8H22M15.8 3 9.9 13.8 6 20.5M2 13.8h8"/></symbol>
     <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></symbol>
     <symbol id="i-quote" viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5H3v7h4c0 3-1 5-4 5zM14 21c3 0 7-1 7-8V5h-7v7h4c0 3-1 5-4 5z"/></symbol>
     <!-- The Nova Notes mark: the cosmic N, drawn in the current theme's colours -->
     <radialGradient id="mk-sky" cx="28%" cy="20%" r="95%"><stop offset="0" style="stop-color:var(--accent)"/><stop offset=".4" style="stop-color:var(--accent-3)"/><stop offset="1" style="stop-color:var(--void)"/></radialGradient>
@@ -128,7 +129,7 @@
       <button type="button" class="btn ghost sm" id="btn-install" hidden title="Install Nova Notes as an app on this device"><svg class="ico"><use href="#i-export"/></svg><span>Install</span></button>
       <button type="button" class="btn ghost sm hide-narrow" id="btn-import"><svg class="ico"><use href="#i-import"/></svg><span>Import</span></button>
       <button type="button" class="btn ghost sm hide-narrow" id="btn-export" aria-haspopup="menu"><svg class="ico"><use href="#i-export"/></svg><span>Export</span></button>
-      <button type="button" class="btn primary sm" id="btn-gdocs"><svg class="ico"><use href="#i-doc"/></svg><span>Google Docs</span></button>
+      <button type="button" class="btn primary sm" id="btn-gdocs" data-sfx="open"><svg class="ico"><use href="#i-doc"/></svg><span>Google Docs</span></button>
     </div>
 
     <nav class="menubar" id="menubar" role="menubar" aria-label="Menu"></nav>
@@ -203,7 +204,7 @@
       <button type="button" class="tb" data-cmd="indent" aria-label="Increase indent (Ctrl+])" title="Increase indent (Ctrl+])"><svg class="ico"><use href="#i-indent"/></svg></button>
     </div>
     <div class="tb-group">
-      <button type="button" class="tb" data-cmd="clear" aria-label="Clear formatting (Ctrl+\)" title="Clear formatting (Ctrl+\)"><svg class="ico"><use href="#i-clear"/></svg></button>
+      <button type="button" class="tb" data-cmd="clear" data-sfx="tap" aria-label="Clear formatting (Ctrl+\)" title="Clear formatting (Ctrl+\)"><svg class="ico"><use href="#i-clear"/></svg></button>
       <button type="button" class="tb" data-cmd="find" aria-label="Find and replace (Ctrl+H)" title="Find and replace (Ctrl+H)"><svg class="ico"><use href="#i-search"/></svg></button>
     </div>
   </div>
@@ -332,8 +333,8 @@
   <button type="button" class="chip" data-table="colRight">+ Column right</button>
   <button type="button" class="chip" data-table="header">Header row</button>
   <span class="sep"></span>
-  <button type="button" class="chip" data-table="delRow">− Row</button>
-  <button type="button" class="chip" data-table="delCol">− Column</button>
+  <button type="button" class="chip" data-table="delRow" data-sfx="remove">− Row</button>
+  <button type="button" class="chip" data-table="delCol" data-sfx="remove">− Column</button>
   <button type="button" class="icon-btn sm danger" data-table="delTable" aria-label="Delete table"><svg class="ico"><use href="#i-trash"/></svg></button>
 </div>
 
@@ -352,7 +353,7 @@
           <span class="route-num">1</span>
           <div><h3>Copy &amp; paste</h3><p>No setup. Copies the note with its Novacane styling and opens a new Google Doc. Press <kbd>Ctrl</kbd>+<kbd>V</kbd> there.</p></div>
         </div>
-        <button type="button" class="btn primary" id="gd-copy"><svg class="ico"><use href="#i-copy"/></svg><span>Copy &amp; open Google Docs</span></button>
+        <button type="button" class="btn primary" id="gd-copy" data-sfx="send"><svg class="ico"><use href="#i-copy"/></svg><span>Copy &amp; open Google Docs</span></button>
       </section>
       <section class="route">
         <div class="route-head">
@@ -394,7 +395,7 @@
     <div class="dlg-foot">
       <span class="spacer"></span>
       <button type="button" class="btn ghost" data-close>Cancel</button>
-      <button type="button" class="btn danger solid" id="confirm-ok">OK</button>
+      <button type="button" class="btn danger solid" id="confirm-ok" data-sfx="remove">OK</button>
     </div>
   </div>
 </dialog>
@@ -453,6 +454,7 @@
 <div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-text"></span><button type="button" id="toast-action" hidden></button></div>
 <div class="dropzone" id="dropzone" hidden><div><svg class="ico"><use href="#i-import"/></svg><p>Drop to import as new notes</p></div></div>
 
+<script src="js/sfx.js"></script>
 <script src="js/themes.js"></script>
 <script src="js/backdrop.js"></script>
 <script src="js/store.js"></script>

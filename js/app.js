@@ -676,13 +676,13 @@
     return [
       { label: 'Google Docs…', icon: 'doc', run: openGdocs },
       { sep: true },
-      { label: 'Word document (.doc)', icon: 'export', run: () => exportAs('doc') },
-      { label: 'Web page (.html)', icon: 'export', run: () => exportAs('html') },
-      { label: 'Markdown (.md)', icon: 'export', run: () => exportAs('md') },
-      { label: 'Plain text (.txt)', icon: 'export', run: () => exportAs('txt') },
-      { label: 'PDF (print)', icon: 'print', run: printNote },
+      { label: 'Word document (.doc)', icon: 'export', sfx: 'send', run: () => exportAs('doc') },
+      { label: 'Web page (.html)', icon: 'export', sfx: 'send', run: () => exportAs('html') },
+      { label: 'Markdown (.md)', icon: 'export', sfx: 'send', run: () => exportAs('md') },
+      { label: 'Plain text (.txt)', icon: 'export', sfx: 'send', run: () => exportAs('txt') },
+      { label: 'PDF (print)', icon: 'print', sfx: 'send', run: printNote },
       { sep: true },
-      { label: 'This note as a backup (.json)', icon: 'export', run: () => exportAs('json') }
+      { label: 'This note as a backup (.json)', icon: 'export', sfx: 'send', run: () => exportAs('json') }
     ];
   }
   const MENUS = [
@@ -694,21 +694,21 @@
       { label: 'Download', icon: 'export', sub: exportItems },
       { label: 'Send to Google Docs…', icon: 'doc', run: openGdocs },
       { sep: true },
-      { label: 'Back up all notes (.json)', icon: 'export', run: backupAll },
+      { label: 'Back up all notes (.json)', icon: 'export', sfx: 'send', run: backupAll },
       { label: 'Restore a backup…', icon: 'import', run: openImport },
       { sep: true },
       { label: 'Rename', run: () => (titleInput.focus(), titleInput.select()) },
       { label: current && current.pinned ? 'Unpin' : 'Pin to top', icon: 'star', run: () => togglePin() },
       { label: 'Delete note', icon: 'trash', run: () => deleteNote() },
       { sep: true },
-      { label: 'Print', icon: 'print', kbd: 'Ctrl+P', run: printNote }
+      { label: 'Print', icon: 'print', kbd: 'Ctrl+P', sfx: 'send', run: printNote }
     ]],
     ['Edit', () => [
       { label: 'Undo', icon: 'undo', kbd: 'Ctrl+Z', disabled: !editor.canUndo(), run: () => editor.undo() },
       { label: 'Redo', icon: 'redo', kbd: 'Ctrl+Y', disabled: !editor.canRedo(), run: () => editor.redo() },
       { sep: true },
       { label: 'Cut', kbd: 'Ctrl+X', run: () => (editor.focus(), document.execCommand('cut')) },
-      { label: 'Copy', icon: 'copy', kbd: 'Ctrl+C', run: () => (editor.focus(), document.execCommand('copy')) },
+      { label: 'Copy', icon: 'copy', kbd: 'Ctrl+C', sfx: 'tap', run: () => (editor.focus(), document.execCommand('copy')) },
       { label: 'Paste', kbd: 'Ctrl+V', run: pasteFromMenu },
       { sep: true },
       { label: 'Select all', kbd: 'Ctrl+A', run: () => editor.exec('selectAll') },
@@ -727,7 +727,10 @@
       { label: 'Zoom', sub: () => [0.5, 0.75, 0.9, 1, 1.25, 1.5, 2].map((z) => ({ label: `${Math.round(z * 100)}%`, checked: settings.zoom === z, run: () => setZoom(z) })) },
       { sep: true },
       { label: 'Focus mode', icon: 'focus', kbd: 'Ctrl+Shift+F', checked: shell.classList.contains('focus'), run: toggleFocus },
-      { label: 'Full screen', icon: 'full', run: toggleFullscreen }
+      { label: 'Full screen', icon: 'full', run: toggleFullscreen },
+      { sep: true },
+      // The soft Nova suite sounds on every press (js/sfx.js); ticked while they're on
+      { label: 'Sound effects', icon: 'sound', checked: sfxOn(), sfx: 'none', run: toggleSfx }
     ]],
     ['Insert', () => [
       { label: 'Image', icon: 'image', sub: () => [
@@ -777,7 +780,7 @@
         { label: 'Decrease indent', kbd: 'Ctrl+[', run: () => editor.exec('outdent') }
       ] },
       { sep: true },
-      { label: 'Clear formatting', icon: 'clear', kbd: 'Ctrl+\\', run: () => editor.exec('clear') }
+      { label: 'Clear formatting', icon: 'clear', kbd: 'Ctrl+\\', sfx: 'tap', run: () => editor.exec('clear') }
     ]],
     ['Tools', () => [
       { label: 'Word count', icon: 'words', kbd: 'Ctrl+Shift+C', run: showWordCount },
@@ -835,6 +838,8 @@
       b.setAttribute('role', it.checked !== undefined ? 'menuitemcheckbox' : 'menuitem');
       if (it.checked !== undefined) b.setAttribute('aria-checked', it.checked ? 'true' : 'false');
       if (it.disabled) b.setAttribute('aria-disabled', 'true');
+      // Items can pick their own sound when the guess from the label would be wrong
+      if (it.sfx) b.dataset.sfx = it.sfx;
       const lead = it.swatch
         ? `<span class="menu-swatch" style="--sa:${it.swatch.accent};--sb:${it.swatch.accent3};--sc:${it.swatch.hi}"></span>`
         : it.icon
@@ -1390,6 +1395,17 @@
     }
     hideBars();
     editor.focus();
+  }
+  // Sound effects: the shared Nova suite sounds (js/sfx.js), on unless switched off on this device
+  function sfxOn() {
+    return Boolean(window.NovaSfx && window.NovaSfx.enabled());
+  }
+  function toggleSfx() {
+    if (!window.NovaSfx) return toast('Sound effects aren’t available here');
+    // A soft "off" chime while sounds are still on, so switching off is heard too (switching on plays its own)
+    if (sfxOn()) window.NovaSfx.play('off');
+    window.NovaSfx.toggle();
+    toast(sfxOn() ? 'Sound effects on' : 'Sound effects off');
   }
   function toggleFullscreen() {
     if (document.fullscreenElement) document.exitFullscreen();
