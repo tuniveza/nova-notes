@@ -6,26 +6,36 @@
 
 **A note editor that writes from the centre of the universe outwards.**
 
-Google Docs–style writing in the Novacane cosmic look: centred by default, six colour themes, import from Word, HTML, Markdown and text, and send it all to Google Docs.
+Google Docs–style writing in the Novacane cosmic look: centred by default, six colour themes, soft cosmic sounds, import from Word, HTML, Markdown and text, and send it all to Google Docs.
 
 ![Static web app](https://img.shields.io/badge/web%20app-no%20build%20step-B01D68?style=flat-square)
 ![Vanilla JS](https://img.shields.io/badge/vanilla-JavaScript-7A1F86?style=flat-square)
 ![Google Docs](https://img.shields.io/badge/exports%20to-Google%20Docs-25194D?style=flat-square)
 ![Part of the Nova suite](https://img.shields.io/badge/part%20of-nova--suite-FF5FA8?style=flat-square)
 
-<img src="docs/media/demo.gif" width="760" alt="Writing a note in Nova Notes: a title, a heading, a checklist and a quote, then switching colour themes and the paper page">
-
-<sub>Short demo · <a href="docs/media/demo.mp4">watch it in full quality (MP4)</a></sub>
+<img src="docs/media/hero.jpg" width="900" alt="Nova Notes with the built-in welcome note open: notes list on the left, the glowing centred page in the middle, the outline on the right">
 
 ### ✦ [Open Nova Notes](https://nova-notes.novacane-studio.workers.dev) ✦
 
-<sub>Works in any modern browser · install it as an app · works offline</sub>
+<sub>Works in any modern browser · install it as an app · works offline · also built into Nova Agent</sub>
 
 </div>
 
 ---
 
-<p align="center"><img src="docs/media/hero.jpg" width="900" alt="Nova Notes with the welcome note open: notes list on the left, the glowing page in the middle, the outline on the right"></p>
+## What's new
+
+| | |
+|---|---|
+| 🔔 **Sound effects** | Soft cosmic sounds on every action. Switch them off or on in **View → Sound effects**. |
+| 🔒 **All Nova suite links** | **Help → 🔒 All Nova suite links** opens the password-protected page with every Nova suite address, live and testing. |
+| ✦ **Inside Nova Agent** | Nova Agent serves its own copy at `/notes/`, so privacy-minded browsers don't block it there. Notes written there are kept on the studio computer. |
+
+## See it in action
+
+<p align="center"><img src="docs/media/demo.gif" width="800" alt="Typing a new note: # and a space makes a heading, - makes a bulleted list, [] makes a checklist and > makes a quote, all centred on the page, then ticking a checklist item"></p>
+
+<p align="center"><sub>Type <code>#</code>, <code>-</code>, <code>[]</code> or <code>&gt;</code> and a space at the start of a line. Everything lines up in the middle.</sub></p>
 
 ## What it does
 
@@ -46,9 +56,10 @@ Google Docs–style writing in the Novacane cosmic look: centred by default, six
   1. **Copy & paste (no set-up):** copies the note with its styling and opens a new Google Doc; press <kbd>Ctrl</kbd>+<kbd>V</kbd>.
   2. **Save to Google Drive (one click once set up):** signs in with Google, creates a real Google Doc, and updates that same Doc each time you save the note again.
 
-**Looks the part**
+**Looks and sounds the part**
 - **Six themes** from the Nova suite: Novacane (magenta), Solar Flare (red-orange), Pulsar (cyan), Aurora (green and violet), Eclipse (gold) and Quasar (ultraviolet).
 - **Two page styles:** *Cosmic* (a glowing glass page among twinkling stars) and *Paper* (white, exactly how the note exports and prints).
+- **Sound effects:** gentle bells and sparkles as you work (see below).
 - **Focus mode,** a pageless view, zoom, and a layout that works on phones and tablets.
 
 **Private by default.** Notes are saved in your browser (IndexedDB) as you type. Nothing leaves it unless you export it or send it to Google Docs.
@@ -57,30 +68,52 @@ Google Docs–style writing in the Novacane cosmic look: centred by default, six
 
 | | |
 |---|---|
-| <img src="docs/media/lists-and-tables.jpg" alt="Centred bullet points, a checklist, a quote and a table"> | <img src="docs/media/paper.jpg" alt="The Paper page style, matching the Google Docs export"> |
-| **Lists, checklists, quotes and tables**, all centred | **Paper page:** what Google Docs, Word and print will show |
-| <img src="docs/media/menus.jpg" alt="The Format menu open on Paragraph styles"> | <img src="docs/media/google-docs.jpg" alt="The Send to Google Docs dialog with two options"> |
+| <img src="docs/media/checklists.jpg" alt="The welcome note's checklist, with the first item ticked, and a centred quote"> | <img src="docs/media/paper.jpg" alt="A fictional note on the Paper page style, matching the Google Docs export"> |
+| **Checklists, lists and quotes**, all centred | **Paper page:** what Google Docs, Word and print will show |
+| <img src="docs/media/menus.jpg" alt="The Format menu open on Paragraph styles, with Heading 1 ticked"> | <img src="docs/media/google-docs.jpg" alt="The Send to Google Docs dialog: copy and paste, or save straight to Google Drive"> |
 | **Google Docs–style menus** with shortcuts | **Send to Google Docs:** copy and paste, or save straight to Drive |
+| <img src="docs/media/sound.jpg" alt="The View menu open, with Sound effects ticked at the bottom"> | <img src="docs/media/help-links.jpg" alt="The Help menu open on 🔒 All Nova suite links"> |
+| **View → Sound effects**, ticked while sounds are on | **Help → 🔒 All Nova suite links** |
 
 <details>
-<summary><b>Every colour theme</b></summary>
+<summary><b>Every colour theme, and a phone</b></summary>
 
 | | |
 |---|---|
-| <img src="docs/media/theme-solar.jpg" alt="Solar Flare theme"> | <img src="docs/media/theme-pulsar.jpg" alt="Pulsar theme"> |
-| Solar Flare | Pulsar |
-| <img src="docs/media/theme-aurora.jpg" alt="Aurora theme"> | <img src="docs/media/theme-eclipse.jpg" alt="Eclipse theme"> |
-| Aurora | Eclipse |
-| <img src="docs/media/theme-quasar.jpg" alt="Quasar theme"> | <img src="docs/media/phone.jpg" width="260" alt="Nova Notes on a phone"> |
+| <img src="docs/media/theme-aurora.jpg" alt="Aurora theme"> | <img src="docs/media/theme-solar.jpg" alt="Solar Flare theme"> |
+| Aurora | Solar Flare |
+| <img src="docs/media/theme-pulsar.jpg" alt="Pulsar theme"> | <img src="docs/media/theme-eclipse.jpg" alt="Eclipse theme"> |
+| Pulsar | Eclipse |
+| <img src="docs/media/theme-quasar.jpg" alt="Quasar theme"> | <img src="docs/media/phone.jpg" width="260" alt="Nova Notes on a phone, showing the welcome note"> |
 | Quasar | On a phone |
 
 </details>
+
+<sub>Every screenshot uses a fresh browser with the built-in welcome note and a couple of made-up notes.</sub>
+
+## Sound effects
+
+Every press makes a soft cosmic sound: a tap, a menu opening, a dialog closing, an export sending, a note deleting. They're made live in the browser with the Web Audio API (there are no sound files), tuned to one pentatonic scale so they sound like one family, and kept quiet.
+
+- **On or off:** *View → Sound effects*. It's ticked while they're on, and plays a little chime when you switch.
+- **Remembered** on each device.
+- **Shared:** the same `js/sfx.js` makes the sounds in Nova Calendar and Nova Observatory too.
+
+## Inside Nova Agent
+
+[Nova Agent](https://github.com/tuniveza/nova-agent), the studio computer's helper, serves its own copy of Nova Notes at **`/notes/`** (for example `http://localhost:4545/notes/`) whenever it's running.
+
+| | On the web | Inside Nova Agent |
+|---|---|---|
+| Address | nova-notes.novacane-studio.workers.dev | `/notes/` on Nova Agent |
+| Where notes are kept | In that browser | On the studio computer, separate from the web app's |
+| Privacy-minded browsers | May limit what a website saves | Fine: it's part of Nova Agent |
 
 ## Use it as an app
 
 Open **https://nova-notes.novacane-studio.workers.dev** and install it:
 
-- **Computer (Chrome, Edge):** the **Install** button in the top bar, or the install icon in the address bar.
+- **Computer (Chrome, Edge):** the **Install** button in the top bar, the install icon in the address bar, or *Help → Install Nova Notes as an app*.
 - **Android:** browser menu → **Install app** / **Add to Home screen**.
 - **iPhone / iPad:** Safari → **Share** → **Add to Home Screen**.
 
@@ -122,6 +155,7 @@ flowchart LR
     E[editor.js<br/>contenteditable page,<br/>own undo history] --> A[app.js<br/>menus, toolbar,<br/>library, dialogs]
     A --> S[(store.js<br/>IndexedDB)]
     A --> C[convert.js<br/>clean · Markdown ·<br/>styled export]
+    X[sfx.js<br/>Web Audio sounds] -.-> A
   end
   F[.docx · .html · .md · .txt] -- import --> C
   C -- copy + docs.new --> G[Google Docs]
@@ -133,6 +167,7 @@ flowchart LR
 - **`convert.js`**: cleans pasted and imported HTML down to what the editor understands, converts Markdown both ways, and builds the **styled export**: every block is inline-styled in the current theme's colours, made deep enough to read on white, so Google Docs and Word keep the look and the centring.
 - **`google.js`**: the clipboard route (rich HTML plus plain text) and the Drive route (Google Identity Services token → multipart upload that Drive converts to a Google Doc, then `PATCH` to update it).
 - **`store.js`**: notes in IndexedDB (falling back to localStorage), settings, backup and restore.
+- **`sfx.js`**: the Nova suite's sound effects. One listener works out what kind of thing was pressed and plays the matching sound; an element can choose its own with `data-sfx`.
 - **`themes.js`** and **`backdrop.js`**: the Nova suite's colour themes and the star field, shared with [Nova Calendar](https://github.com/tuniveza/nova-calendar).
 
 ## Keyboard shortcuts
@@ -163,6 +198,7 @@ nn/
 ├── wrangler.jsonc      Cloudflare hosting (static assets only)
 ├── css/nova-notes.css  all the styling: cosmic and paper pages, themes, print, phones
 ├── js/
+│   ├── sfx.js          the Nova suite sound effects (shared with Nova Calendar and Nova Observatory)
 │   ├── themes.js       colour themes (shared with Nova Calendar)
 │   ├── backdrop.js     the twinkling star field
 │   ├── store.js        IndexedDB notes, settings, backup/restore
@@ -180,11 +216,12 @@ nn/
 |---|---|
 | [**nova-suite**](https://github.com/tuniveza/nova-suite) | The whole suite in one place |
 | [**nova-bot**](https://github.com/tuniveza/nova-bot) | The studio's chat assistant, bookings and staff app back end |
-| [**nova-agent**](https://github.com/tuniveza/nova-agent) | The browser helper that works Acuity's admin pages |
+| [**nova-agent**](https://github.com/tuniveza/nova-agent) | The studio computer's helper; also serves Nova Notes, Nova Calendar and Nova Observatory |
 | [**nova-club**](https://github.com/tuniveza/nova-club) | The members' Android app |
 | [**nova-calendar**](https://github.com/tuniveza/nova-calendar) | A cosmic calendar of note cards and day cards |
 | [**nova-notes**](https://github.com/tuniveza/nova-notes) | You are here |
 | [**nova-observatory**](https://github.com/tuniveza/nova-observatory) | A dashboard of every project |
+| [**nova-index**](https://github.com/tuniveza/nova-index) | The suite's shared memory |
 
 ---
 
